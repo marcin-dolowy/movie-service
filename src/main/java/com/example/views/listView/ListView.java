@@ -55,10 +55,9 @@ public class ListView extends VerticalLayout {
         movieForm.addListener(MovieForm.CloseEvent.class, e -> closeEditor());
     }
 
-    //TUTAJ DODAC FUNKCJE KTORA DODAJE DO ULUBIONYCH
     private void addMovieToFavouriteList(MovieForm.SaveEvent event) {
         movieService.addFavouriteMovie(event.getMovie());
-        Notification.show("XDDDDDD");
+        Notification.show("Successfully added");
         updateList();
         closeEditor();
     }
@@ -78,11 +77,11 @@ public class ListView extends VerticalLayout {
         }).setHeader("Plot");
 
         grid.addComponentColumn(i -> {
-                    Image image = new Image(i.getPoster(), "alt text");
-                    image.setWidth(90, Unit.PIXELS);
-                    image.setHeight(134, Unit.PIXELS);
-                    return image;
-                }).setHeader("Poster");
+            Image image = new Image(i.getPoster(), "alt text");
+            image.setWidth(90, Unit.PIXELS);
+            image.setHeight(134, Unit.PIXELS);
+            return image;
+        }).setHeader("Poster");
 
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
@@ -103,7 +102,7 @@ public class ListView extends VerticalLayout {
     }
 
     public void editMovie(Movie movie) {
-        if(movie == null) {
+        if (movie == null) {
             closeEditor();
         } else {
             movieForm.setMovie(movie);
@@ -120,7 +119,7 @@ public class ListView extends VerticalLayout {
     }
 
     private void addMovie() {
-        if(filterText.getValue() == null) {
+        if (filterText.getValue() == null) {
             Notification.show("Cannot be empty");
         } else {
             movieService.clearMovieList();

@@ -6,10 +6,8 @@ import javax.persistence.MappedSuperclass;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @MappedSuperclass
-
 public class Movie {
 
     private String imdbID;
@@ -18,5 +16,4 @@ public class Movie {
     private String genre;
     private String director;
     private String poster;
-
 }

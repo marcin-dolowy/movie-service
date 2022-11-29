@@ -23,6 +23,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class MovieService {
+
     private List<Movie> movies = new ArrayList<>();
     private final FavouriteMovieRepository favouriteMovieRepository;
 
@@ -33,7 +34,6 @@ public class MovieService {
         HttpResponse<String> response = getResponse("https://www.omdbapi.com/?s=" + title + "&apikey=d3d95a11");
 
         JSONObject jsonObject = new JSONObject(response.body());
-
         JSONArray jsonArray = jsonObject.getJSONArray("Search");
 
         for (int i = 0; i < jsonArray.length(); ++i) {
@@ -42,16 +42,20 @@ public class MovieService {
             response = getResponse("https://www.omdbapi.com/?i=" + imdbID + "&apikey=d3d95a11");
             JSONObject movieFromJson = new JSONObject(response.body());
 
-            Movie movie = new Movie(
-                    movieFromJson.getString("imdbID"),
-                    movieFromJson.getString("Title"),
-                    movieFromJson.getString("Plot"),
-                    movieFromJson.getString("Genre"),
-                    movieFromJson.getString("Director"),
-                    movieFromJson.getString("Poster")
-            );
+            Movie movie = getMovie(movieFromJson);
             movies.add(movie);
         }
+    }
+
+    private static Movie getMovie(JSONObject movieFromJson) {
+        return new Movie(
+                movieFromJson.getString("imdbID"),
+                movieFromJson.getString("Title"),
+                movieFromJson.getString("Plot"),
+                movieFromJson.getString("Genre"),
+                movieFromJson.getString("Director"),
+                movieFromJson.getString("Poster")
+        );
     }
 
     public static HttpResponse<String> getResponse(String url) throws IOException, InterruptedException {

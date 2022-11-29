@@ -14,4 +14,5 @@ public interface FavouriteMovieRepository extends JpaRepository<FavouriteMovie, 
     @Query("select c from FavouriteMovie c " +
             "where lower(c.title) like lower(concat('%', :searchTerm, '%'))")
     List<FavouriteMovie> search(@Param("searchTerm") String searchTerm);
+
 }

@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-public class FavouriteMovie extends Movie{
+public class FavouriteMovie extends Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +24,3 @@ public class FavouriteMovie extends Movie{
         this.id = id;
     }
 }
-
-

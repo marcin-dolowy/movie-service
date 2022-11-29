@@ -64,7 +64,6 @@ public class MovieForm extends FormLayout {
         binder.readBean(movie);
     }
 
-    // Events
     public static abstract class MovieFormEvent extends ComponentEvent<MovieForm> {
         private Movie movie;
 

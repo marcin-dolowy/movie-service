@@ -30,18 +30,8 @@ public class MovieController {
         movieService.saveFavouriteMovie(favouriteMovie);
     }
 
-//    @PatchMapping("/{id}")
-//    public void editFavouriteMovie(@PathVariable Long id, @RequestBody FavouriteMovie updatedFavouriteMovie) {
-//        Optional<FavouriteMovie> favouriteMovie = movieService.findById(id);
-//        if(favouriteMovie.isPresent()) {
-//            movieService.saveFavouriteMovie(updatedFavouriteMovie);
-//        }
-//    }
-
     @DeleteMapping
     public void deleteFavouriteMovie(@RequestParam Long id) {
         movieService.deleteById(id);
     }
-
-
 }
