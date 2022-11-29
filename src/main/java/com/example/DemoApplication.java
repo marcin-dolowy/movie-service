@@ -28,65 +28,33 @@ public class DemoApplication {
 
         String title = "Harry+Potter";
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder(
-                        URI.create("https://www.omdbapi.com/?s=" + title + "&apikey=d3d95a11"))
-                .build();
+        HttpResponse<String> response = getRespone("https://www.omdbapi.com/?s=" + title + "&apikey=d3d95a11");
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        JSONObject jsonObject = new JSONObject(response.body());
 
-        //JSONObject jsonObject = new JSONObject(response.body());
+        JSONArray jsonArray = jsonObject.getJSONArray("Search");
 
-        //JSONArray jsonArray = new JSONArray(response.body());
-        String strJSON = response.body();
-        System.out.println(strJSON);
 
-        JSONArray jsonArray = (JSONArray) new JSONTokener(strJSON).nextValue();
-        JSONObject jsonObject = jsonArray.getJSONObject(0);
+        for(int i = 0; i < jsonArray.length(); ++i) {
+            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+            String imdbID = jsonObject1.get("imdbID").toString();
+            System.out.println(imdbID);
 
-        System.out.println(jsonObject.toString());
-
+        }
 
         System.out.println("===============");
 
-
-
-
-
-//
-//        movieService.addMovie("Batman");
-//        movieService.addMovie("The Batman");
-//        //movieService.addMovie("Harry Potter");
-//        movieService.addMovie("Pulp Fiction");
-//        movieService.addMovie("The Shawshank Redemption");
-
-//        HttpClient client = HttpClient.newHttpClient();
-//        MovieRepository movieRepository = run.getBean(MovieRepository.class);
-//        List<Movie> movies;
-//
-//        String title = "The+Batman";
-//
-//        HttpRequest request = HttpRequest.newBuilder(
-//                        URI.create("https://www.omdbapi.com/?t=" + title + "&apikey=d3d95a11"))
-//                .build();
-//
-//        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//
-//        JSONObject jsonObject = new JSONObject(response.body());
-//
-//        Movie movie = new Movie(
-//                jsonObject.getString("Title"),
-//                jsonObject.getString("Plot"),
-//                jsonObject.getString("Genre"),
-//                jsonObject.getString("Director"),
-//                jsonObject.getString("Poster")
-//        );
-//
-//        movieRepository.save(movie);
-//
-//        movie.getFavouriteMovies().add(movie);
-//        movies = movie.getFavouriteMovies();
-//        movieRepository.saveAll(movies);
     }
+
+    public static HttpResponse<String> getRespone(String url) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder(
+                        URI.create(url))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return response;
+    }
+
 }
 
