@@ -11,7 +11,6 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
 @Data
 @Entity
 public class FavouriteMovie extends Movie{

@@ -1,7 +1,7 @@
 package com.example.views.listView;
 
 import com.example.data.entities.Movie;
-import com.example.data.service.MovieOperation;
+import com.example.data.service.MovieService;
 import com.example.views.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Key;
@@ -24,9 +24,9 @@ public class ListView extends VerticalLayout {
     Grid<Movie> grid = new Grid<>(Movie.class);
     TextField filterText = new TextField();
     MovieForm movieForm;
-    MovieOperation movieService;
+    MovieService movieService;
 
-    public ListView(MovieOperation movieService) {
+    public ListView(MovieService movieService) {
         this.movieService = movieService;
         addClassName("list-view");
         setSizeFull();

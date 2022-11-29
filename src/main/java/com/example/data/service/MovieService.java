@@ -4,10 +4,10 @@ import com.example.data.entities.FavouriteMovie;
 import com.example.data.entities.Movie;
 import com.example.data.repositories.FavouriteMovieRepository;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -17,18 +17,14 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @Service
-public class MovieOperation {
-    private List<Movie> movies;
+@RequiredArgsConstructor
+public class MovieService {
+    private List<Movie> movies = new ArrayList<>();
     private final FavouriteMovieRepository favouriteMovieRepository;
-
-    @Autowired
-    public MovieOperation(FavouriteMovieRepository favouriteMovieRepository) {
-        this.favouriteMovieRepository = favouriteMovieRepository;
-        this.movies = new ArrayList<>();
-    }
 
     @SneakyThrows
     public void saveMovie(String title) {
@@ -95,6 +91,22 @@ public class MovieOperation {
         } else {
             return favouriteMovieRepository.search(stringFilter);
         }
+    }
+
+    public List<FavouriteMovie> findAll() {
+        return favouriteMovieRepository.findAll();
+    }
+
+    public Optional<FavouriteMovie> findById(Long id) {
+        return favouriteMovieRepository.findById(id);
+    }
+
+    public void deleteById(Long id) {
+        favouriteMovieRepository.deleteById(id);
+    }
+
+    public void saveFavouriteMovie(FavouriteMovie favouriteMovie) {
+        favouriteMovieRepository.save(favouriteMovie);
     }
 
 }

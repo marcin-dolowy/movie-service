@@ -1,13 +1,9 @@
 package com.example.views.favouritemovieview;
 
 import com.example.data.entities.FavouriteMovie;
-import com.example.data.entities.Movie;
-import com.example.data.service.MovieOperation;
+import com.example.data.service.MovieService;
 import com.example.views.MainLayout;
-import com.example.views.listView.ListView;
-import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.Unit;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -24,10 +20,10 @@ public class FavouriteMovieView extends VerticalLayout {
 
     Grid<FavouriteMovie> grid = new Grid<>(FavouriteMovie.class);
     TextField filterText = new TextField();
-    MovieOperation movieOperation;
+    MovieService movieService;
 
-    public FavouriteMovieView(MovieOperation movieOperation) {
-        this.movieOperation = movieOperation;
+    public FavouriteMovieView(MovieService movieService) {
+        this.movieService = movieService;
         addClassName("list-view");
         setSizeFull();
         configureGrid();
@@ -73,7 +69,7 @@ public class FavouriteMovieView extends VerticalLayout {
     }
 
     private void updateList() {
-        grid.setItems(movieOperation.findAllFavouriteMovies(filterText.getValue()));
+        grid.setItems(movieService.findAllFavouriteMovies(filterText.getValue()));
     }
 
 }

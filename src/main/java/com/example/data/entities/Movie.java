@@ -12,8 +12,6 @@ import javax.persistence.MappedSuperclass;
 
 public class Movie {
 
-    //private Long id;
-
     private String imdbID;
     private String title;
     private String plot;
