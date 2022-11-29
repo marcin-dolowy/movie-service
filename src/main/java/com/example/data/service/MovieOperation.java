@@ -47,7 +47,6 @@ public class MovieOperation {
             JSONObject movieFromJson = new JSONObject(response.body());
 
             Movie movie = new Movie(
-                    null,
                     movieFromJson.getString("imdbID"),
                     movieFromJson.getString("Title"),
                     movieFromJson.getString("Plot"),

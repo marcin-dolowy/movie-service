@@ -1,15 +1,18 @@
 package com.example.data.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import javax.persistence.MappedSuperclass;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@MappedSuperclass
+
 public class Movie {
 
-    private Long id;
+    //private Long id;
 
     private String imdbID;
     private String title;
