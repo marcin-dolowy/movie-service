@@ -1,6 +1,8 @@
 package com.example.views.favouritemovieview;
 
+import com.example.data.entities.FavouriteMovie;
 import com.example.data.entities.Movie;
+import com.example.data.service.MovieOperation;
 import com.example.views.MainLayout;
 import com.example.views.listView.ListView;
 import com.vaadin.flow.component.Key;
@@ -20,15 +22,18 @@ import com.vaadin.flow.router.Route;
 @PageTitle("Favourite Movies")
 public class FavouriteMovieView extends VerticalLayout {
 
-    Grid<Movie> grid = new Grid<>(Movie.class);
+    Grid<FavouriteMovie> grid = new Grid<>(FavouriteMovie.class);
     TextField filterText = new TextField();
+    MovieOperation movieOperation;
 
-    public FavouriteMovieView() {
+    public FavouriteMovieView(MovieOperation movieOperation) {
+        this.movieOperation = movieOperation;
         addClassName("list-view");
         setSizeFull();
         configureGrid();
 
         add(getToolbar(), grid);
+        updateList();
     }
 
     private void configureGrid() {
@@ -59,11 +64,16 @@ public class FavouriteMovieView extends VerticalLayout {
         filterText.setPlaceholder("Filter by title...");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
+        filterText.addValueChangeListener(event -> updateList());
 
 
         HorizontalLayout toolbar = new HorizontalLayout(filterText);
         toolbar.addClassName("toolbar");
         return toolbar;
+    }
+
+    private void updateList() {
+        grid.setItems(movieOperation.findAllFavouriteMovies(filterText.getValue()));
     }
 
 }

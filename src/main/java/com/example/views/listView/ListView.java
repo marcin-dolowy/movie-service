@@ -1,7 +1,7 @@
 package com.example.views.listView;
 
 import com.example.data.entities.Movie;
-import com.example.data.service.MovieService;
+import com.example.data.service.MovieOperation;
 import com.example.views.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Key;
@@ -24,9 +24,9 @@ public class ListView extends VerticalLayout {
     Grid<Movie> grid = new Grid<>(Movie.class);
     TextField filterText = new TextField();
     MovieForm movieForm;
-    MovieService movieService;
+    MovieOperation movieService;
 
-    public ListView(MovieService movieService) {
+    public ListView(MovieOperation movieService) {
         this.movieService = movieService;
         addClassName("list-view");
         setSizeFull();
@@ -51,13 +51,13 @@ public class ListView extends VerticalLayout {
         movieForm = new MovieForm();
         movieForm.setWidth("25em");
 
-        movieForm.addListener(MovieForm.SaveEvent.class, this::saveContact);
+        movieForm.addListener(MovieForm.SaveEvent.class, this::addMovieToFavouriteList);
         movieForm.addListener(MovieForm.CloseEvent.class, e -> closeEditor());
     }
 
     //TUTAJ DODAC FUNKCJE KTORA DODAJE DO ULUBIONYCH
-    private void saveContact(MovieForm.SaveEvent event) {
-
+    private void addMovieToFavouriteList(MovieForm.SaveEvent event) {
+        movieService.addFavouriteMovie(event.getMovie());
         Notification.show("XDDDDDD");
         updateList();
         closeEditor();
@@ -123,14 +123,14 @@ public class ListView extends VerticalLayout {
         if(filterText.getValue() == null) {
             Notification.show("Cannot be empty");
         } else {
-            movieService.deleteAllMovies();
+            movieService.clearMovieList();
             movieService.saveMovie(filterText.getValue());
             updateList();
         }
     }
 
     public void updateList() {
-        grid.setItems(movieService.findAllMovies());
+        grid.setItems(movieService.getMovies());
     }
 
 }
