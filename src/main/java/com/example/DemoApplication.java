@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.data.entities.Movie;
 import com.example.data.repositories.MovieRepository;
 import com.example.data.service.MovieService;
 import org.json.JSONArray;
@@ -38,7 +39,18 @@ public class DemoApplication {
         for(int i = 0; i < jsonArray.length(); ++i) {
             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
             String imdbID = jsonObject1.get("imdbID").toString();
-            System.out.println(imdbID);
+
+            response = getRespone("https://www.omdbapi.com/?i=" + imdbID + "&apikey=d3d95a11");
+            JSONObject jsonObject2 = new JSONObject(response.body());
+
+            Movie movie = new Movie(
+                    null,
+                    jsonObject2.getString("Title"),
+                    jsonObject2.getString("Plot"),
+                    jsonObject2.getString("Genre"),
+                    jsonObject2.getString("Director"),
+                    jsonObject2.getString("Poster")
+            );
 
         }
 

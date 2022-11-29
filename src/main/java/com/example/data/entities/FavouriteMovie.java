@@ -1,20 +1,21 @@
 package com.example.data.entities;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.*;
 
 
-@Getter
-@Setter
-@EqualsAndHashCode(callSuper = true)
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Entity
-public class FavouriteMovie extends Movie {
+public class FavouriteMovie {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private Long movie_id;
 }
 
 

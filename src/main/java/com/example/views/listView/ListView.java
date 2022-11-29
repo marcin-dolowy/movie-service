@@ -57,7 +57,7 @@ public class ListView extends VerticalLayout {
 
     //TUTAJ DODAC FUNKCJE KTORA DODAJE DO ULUBIONYCH
     private void saveContact(MovieForm.SaveEvent event) {
-        //FUNKCJA
+
         Notification.show("XDDDDDD");
         updateList();
         closeEditor();
@@ -123,6 +123,7 @@ public class ListView extends VerticalLayout {
         if(filterText.getValue() == null) {
             Notification.show("Cannot be empty");
         } else {
+            movieService.deleteAllMovies();
             movieService.saveMovie(filterText.getValue());
             updateList();
         }
@@ -131,4 +132,5 @@ public class ListView extends VerticalLayout {
     public void updateList() {
         grid.setItems(movieService.findAllMovies());
     }
+
 }
