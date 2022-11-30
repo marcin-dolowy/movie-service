@@ -33,7 +33,16 @@ public class MovieForm extends FormLayout {
         addClassName("movie-form");
         binder.bindInstanceFields(this);
 
+        setTextFieldForReadOnly();
+
         add(title, plot, genre, director, poster, createButtonLayouts());
+    }
+
+    private void setTextFieldForReadOnly() {
+        title.setReadOnly(true);
+        plot.setReadOnly(true);
+        genre.setReadOnly(true);
+        director.setReadOnly(true);
     }
 
     private HorizontalLayout createButtonLayouts() {
@@ -65,7 +74,7 @@ public class MovieForm extends FormLayout {
     }
 
     public static abstract class MovieFormEvent extends ComponentEvent<MovieForm> {
-        private Movie movie;
+        private final Movie movie;
 
         protected MovieFormEvent(MovieForm source, Movie movie) {
             super(source, false);
