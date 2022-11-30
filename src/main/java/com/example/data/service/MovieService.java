@@ -67,7 +67,7 @@ public class MovieService {
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
-    public void addFavouriteMovie(Movie movie) {
+    public boolean addFavouriteMovie(Movie movie) {
         FavouriteMovie favouriteMovie = new FavouriteMovie(
                 null,
                 movie.getImdbID(),
@@ -82,7 +82,9 @@ public class MovieService {
                 .map(FavouriteMovie::getImdbID)
                 .anyMatch(e -> e.equals(favouriteMovie.getImdbID()))) {
             favouriteMovieRepository.save(favouriteMovie);
+            return true;
         }
+        return false;
     }
 
     public void clearMovieList() {
