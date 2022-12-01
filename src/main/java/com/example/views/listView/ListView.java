@@ -57,11 +57,11 @@ public class ListView extends VerticalLayout {
 
     private void addMovieToFavouriteList(MovieForm.SaveEvent event) {
         if(movieService.addFavouriteMovie(event.getMovie())) {
-            Notification.show("Successfully added");
+            Notification.show("Successfully added.");
             updateList();
         }
         else {
-            Notification.show("Movie is already on the list");
+            Notification.show("Movie is already in favorites.");
         }
         closeEditor();
     }
