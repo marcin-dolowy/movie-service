@@ -2,7 +2,7 @@ package com.example.data.service;
 
 import com.example.data.entities.FavouriteMovie;
 import com.example.data.entities.Movie;
-import com.example.data.repositories.FavouriteMovieRepository;
+import com.example.data.repository.FavouriteMovieRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;

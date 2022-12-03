@@ -1,4 +1,4 @@
-package com.example.data.repositories;
+package com.example.data.repository;
 
 import com.example.data.entities.FavouriteMovie;
 import org.springframework.data.jpa.repository.JpaRepository;
