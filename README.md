@@ -16,7 +16,6 @@ The OMDb API is a RESTful web service to obtain movie information, all content a
 
 - Find all favourite movies: `GET/api/movies/all`
 - Find a movie by id: `GET/api/movies/?id={id}`
-- Add movie using JSON file: `POST/api/movies`
 - Delete a movie: `DELETE/api/movies/?id={}`
 
 ### Details
