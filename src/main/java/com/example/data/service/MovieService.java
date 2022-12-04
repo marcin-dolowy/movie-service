@@ -77,10 +77,10 @@ public class MovieService {
                 movie.getDirector(),
                 movie.getPoster()
         );
-        if (!favouriteMovieRepository.findAll()
+        if (favouriteMovieRepository.findAll()
                 .stream()
                 .map(FavouriteMovie::getImdbID)
-                .anyMatch(e -> e.equals(favouriteMovie.getImdbID()))) {
+                .noneMatch(e -> e.equals(favouriteMovie.getImdbID()))) {
             favouriteMovieRepository.save(favouriteMovie);
             return true;
         }
