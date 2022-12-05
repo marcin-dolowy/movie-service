@@ -132,7 +132,7 @@ public class ListView extends VerticalLayout {
         }
     }
 
-    public void updateList() {
+    private void updateList() {
         grid.setItems(movieService.getMovies());
     }
 
