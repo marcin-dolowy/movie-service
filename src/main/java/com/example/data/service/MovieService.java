@@ -9,15 +9,15 @@ import lombok.SneakyThrows;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Data
 @Service
@@ -115,4 +115,15 @@ public class MovieService {
         favouriteMovieRepository.save(favouriteMovie);
     }
 
+    public FavouriteMovie updateFavouriteMovie(Long id, Map<Object, Object> objectMap) {
+        FavouriteMovie favouriteMovie = favouriteMovieRepository.findById(id)
+                .orElseThrow(NoSuchElementException::new);
+
+        objectMap.forEach((key, value) -> {
+            Field field = ReflectionUtils.findField(FavouriteMovie.class, (String) key);
+            Objects.requireNonNull(field).setAccessible(true);
+            ReflectionUtils.setField(field, favouriteMovie, value);
+        });
+        return favouriteMovieRepository.save(favouriteMovie);
+    }
 }

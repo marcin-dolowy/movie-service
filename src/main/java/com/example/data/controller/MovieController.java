@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -28,6 +29,12 @@ public class MovieController {
     @PostMapping
     public void addFavouriteMovie(@RequestBody FavouriteMovie favouriteMovie) {
         movieService.saveFavouriteMovie(favouriteMovie);
+    }
+
+    @PatchMapping("/update/{id}")
+    public FavouriteMovie update(@PathVariable Long id, @RequestBody Map<Object, Object> objectMap) {
+        return movieService.updateFavouriteMovie(id, objectMap);
+
     }
 
     @DeleteMapping
