@@ -8,9 +8,9 @@ It is connected with H2 database.
 The OMDb API is a RESTful web service to obtain movie information, all content and images on the site are contributed and maintained by our users.
 
 ## Features
-- Movie search
-- Add movie to favorites
-- Save favourite movies to database
+- Movie search.
+- Add movie to favorites.
+- Save favourite movies to database.
 
 ### This API provides HTTP endpoint's and tool for the following:
 
@@ -21,7 +21,8 @@ The OMDb API is a RESTful web service to obtain movie information, all content a
 ### Details
 
 `POST/api/movies`
-This end-point is called to add favourite movie
+
+This end-point is called to add favourite movie.
 
 **Body:**
 ```json
@@ -31,6 +32,30 @@ This end-point is called to add favourite movie
   "plot": "abc",
   "genre": "abc",
   "director": "abc",
+  "poster": "url"
+}
+```
+\
+`PATCH/api/movies/update/{id}`
+
+This end-point is called to update a movie.
+
+**Body:**
+```json
+{
+  "plot": "new plot",
+  "director": "new director"
+}
+```
+
+**Result:**
+```json
+{
+  "imdbID": "tt123456",
+  "title": "abc",
+  "plot": "new plot",
+  "genre": "abc",
+  "director": "new director",
   "poster": "url"
 }
 ```
